@@ -1,0 +1,737 @@
+{
+    "version": "Notebook/1.0",
+    "items": [
+      {
+        "type": 1,
+        "content": {
+          "json": ">**NOTE:** This workbook depends on a parser based on a Kusto Function to work as expected [**ExtraHopDetections**](https://aka.ms/sentinel-ExtraHopDetections-parser) which is deployed with the Microsoft Sentinel Solution."
+        },
+        "name": "text - 5"
+      },
+      {
+        "type": 9,
+        "content": {
+          "version": "KqlParameterItem/1.0",
+          "parameters": [
+            {
+              "id": "59c79f5b-f70b-4efb-a1c5-61415c94e007",
+              "version": "KqlParameterItem/1.0",
+              "name": "Time",
+              "label": "Time Range",
+              "type": 4,
+              "isRequired": true,
+              "typeSettings": {
+                "selectableValues": [
+                  {
+                    "durationMs": 300000
+                  },
+                  {
+                    "durationMs": 900000
+                  },
+                  {
+                    "durationMs": 1800000
+                  },
+                  {
+                    "durationMs": 3600000
+                  },
+                  {
+                    "durationMs": 14400000
+                  },
+                  {
+                    "durationMs": 43200000
+                  },
+                  {
+                    "durationMs": 86400000
+                  },
+                  {
+                    "durationMs": 172800000
+                  },
+                  {
+                    "durationMs": 259200000
+                  },
+                  {
+                    "durationMs": 604800000
+                  },
+                  {
+                    "durationMs": 1209600000
+                  },
+                  {
+                    "durationMs": 2419200000
+                  },
+                  {
+                    "durationMs": 2592000000
+                  },
+                  {
+                    "durationMs": 5184000000
+                  },
+                  {
+                    "durationMs": 7776000000
+                  }
+                ]
+              },
+              "timeContext": {
+                "durationMs": 1800000
+              },
+              "value": {
+                "durationMs": 86400000
+              }
+            }
+          ],
+          "style": "pills",
+          "queryType": 0,
+          "resourceType": "microsoft.operationalinsights/workspaces"
+        },
+        "name": "parameters - 5"
+      },
+      {
+        "type": 12,
+        "content": {
+          "version": "NotebookGroup/1.0",
+          "groupType": "editable",
+          "items": [
+            {
+              "type": 3,
+              "content": {
+                "version": "KqlItem/1.0",
+                "query": "ExtraHopDetections\r\n| where IsRecommended == true | count",
+                "size": 3,
+                "showAnalytics": true,
+                "title": "Recommended Detections",
+                "timeContextFromParameter": "Time",
+                "showRefreshButton": true,
+                "exportFieldName": "Count",
+                "exportParameterName": "RecommendedDetails",
+                "queryType": 0,
+                "resourceType": "microsoft.operationalinsights/workspaces",
+                "visualization": "tiles",
+                "tileSettings": {
+                  "titleContent": {
+                    "columnMatch": "Count",
+                    "formatter": 12,
+                    "formatOptions": {
+                      "min": -1,
+                      "palette": "blue"
+                    }
+                  },
+                  "showBorder": true
+                }
+              },
+              "customWidth": "33",
+              "name": "query - 0",
+              "styleSettings": {
+                "margin": "5px",
+                "maxWidth": "33%"
+              }
+            },
+            {
+              "type": 3,
+              "content": {
+                "version": "KqlItem/1.0",
+                "query": "ExtraHopDetections\r\n| count",
+                "size": 3,
+                "showAnalytics": true,
+                "title": "Total Detections",
+                "timeContextFromParameter": "Time",
+                "showRefreshButton": true,
+                "exportFieldName": "Count",
+                "exportParameterName": "DetectionDetails",
+                "queryType": 0,
+                "resourceType": "microsoft.operationalinsights/workspaces",
+                "visualization": "tiles",
+                "tileSettings": {
+                  "titleContent": {
+                    "columnMatch": "Count",
+                    "formatter": 12,
+                    "formatOptions": {
+                      "min": -1,
+                      "palette": "magenta"
+                    }
+                  },
+                  "showBorder": true
+                }
+              },
+              "customWidth": "33",
+              "name": "query - 1",
+              "styleSettings": {
+                "margin": "5px",
+                "maxWidth": "33%"
+              }
+            },
+            {
+              "type": 3,
+              "content": {
+                "version": "KqlItem/1.0",
+                "query": "ExtraHopDetections\r\n| summarize MaximumRiskScore=max(RiskScore)",
+                "size": 3,
+                "showAnalytics": true,
+                "title": "Maximum Risk Score",
+                "timeContextFromParameter": "Time",
+                "showRefreshButton": true,
+                "exportFieldName": "MaximumRiskScore",
+                "exportParameterName": "MaximumRiskScore",
+                "queryType": 0,
+                "resourceType": "microsoft.operationalinsights/workspaces",
+                "visualization": "tiles",
+                "tileSettings": {
+                  "titleContent": {
+                    "columnMatch": "MaximumRiskScore",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "<=",
+                          "thresholdValue": "30",
+                          "representation": "yellow",
+                          "text": "{0}{1}"
+                        },
+                        {
+                          "operator": "<=",
+                          "thresholdValue": "79",
+                          "representation": "orange",
+                          "text": "{0}{1}"
+                        },
+                        {
+                          "operator": "<=",
+                          "thresholdValue": "99",
+                          "representation": "redBright",
+                          "text": "{0}{1}"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "gray",
+                          "text": "{0}{1}"
+                        }
+                      ]
+                    }
+                  },
+                  "showBorder": true
+                }
+              },
+              "customWidth": "33",
+              "name": "query - 1",
+              "styleSettings": {
+                "margin": "5px",
+                "maxWidth": "33%"
+              }
+            },
+            {
+              "type": 1,
+              "content": {
+                "json": "#### Click on the sections in the above panel **Recommended Detections** to view more information.",
+                "style": "info"
+              },
+              "customWidth": "33",
+              "name": "text - 5",
+              "styleSettings": {
+                "margin": "5px",
+                "maxWidth": "33%"
+              }
+            },
+            {
+              "type": 1,
+              "content": {
+                "json": "#### Click on the sections in the above panel **Total Detections** to view more information.",
+                "style": "info"
+              },
+              "customWidth": "33",
+              "name": "text - 7",
+              "styleSettings": {
+                "margin": "5px",
+                "maxWidth": "33%"
+              }
+            },
+            {
+              "type": 1,
+              "content": {
+                "json": "#### Click on the sections in the above panel **Maximum Risk Score** to view more information.",
+                "style": "info"
+              },
+              "customWidth": "33",
+              "name": "text - 8",
+              "styleSettings": {
+                "margin": "5px",
+                "maxWidth": "33%"
+              }
+            },
+            {
+              "type": 3,
+              "content": {
+                "version": "KqlItem/1.0",
+                "query": "ExtraHopDetections\r\n| where IsRecommended = true \r\n| extend SourceDeviceIpAddress = strcat_array(todynamic(SourceDeviceIpAddress), \",\"), DestinationDeviceIpAddress = strcat_array(todynamic(DestinationDeviceIpAddress), \",\"),\r\nCategoriesIds = strcat_array(todynamic(CategoriesIds), \",\"),\r\nCategories = strcat_array(todynamic(Categories), \",\"),\r\nTechniqueIds = strcat_array(todynamic(TechniqueIds), \",\"),\r\nTechniqueNames = strcat_array(todynamic(TechniqueNames), \",\")\r\n| project-reorder TimeGenerated, Title, IsRecommended",
+                "size": 0,
+                "showAnalytics": true,
+                "title": "Details of Recommended Detections",
+                "noDataMessage": "No data found.",
+                "timeContextFromParameter": "Time",
+                "showRefreshButton": true,
+                "showExportToExcel": true,
+                "queryType": 0,
+                "resourceType": "microsoft.operationalinsights/workspaces",
+                "gridSettings": {
+                  "rowLimit": 10000,
+                  "filter": true
+                }
+              },
+              "conditionalVisibility": {
+                "parameterName": "RecommendedDetails",
+                "comparison": "isNotEqualTo"
+              },
+              "name": "query - 3",
+              "styleSettings": {
+                "showBorder": true
+              }
+            },
+            {
+              "type": 3,
+              "content": {
+                "version": "KqlItem/1.0",
+                "query": "ExtraHopDetections\r\n| extend SourceDeviceIpAddress = strcat_array(todynamic(SourceDeviceIpAddress), \",\"), DestinationDeviceIpAddress = strcat_array(todynamic(DestinationDeviceIpAddress), \",\"),\r\nCategoriesIds = strcat_array(todynamic(CategoriesIds), \",\"),\r\nCategories = strcat_array(todynamic(Categories), \",\"),\r\nTechniqueIds = strcat_array(todynamic(TechniqueIds), \",\"),\r\nTechniqueNames = strcat_array(todynamic(TechniqueNames), \",\")",
+                "size": 0,
+                "showAnalytics": true,
+                "title": "Details of Detections",
+                "noDataMessage": "No data found.",
+                "timeContextFromParameter": "Time",
+                "showRefreshButton": true,
+                "showExportToExcel": true,
+                "queryType": 0,
+                "resourceType": "microsoft.operationalinsights/workspaces",
+                "gridSettings": {
+                  "rowLimit": 10000,
+                  "filter": true
+                }
+              },
+              "conditionalVisibility": {
+                "parameterName": "DetectionDetails",
+                "comparison": "isNotEqualTo"
+              },
+              "name": "query - 4",
+              "styleSettings": {
+                "showBorder": true
+              }
+            },
+            {
+              "type": 3,
+              "content": {
+                "version": "KqlItem/1.0",
+                "query": "ExtraHopDetections\r\n| where RiskScore == ('{MaximumRiskScore}')\r\n| extend SourceDeviceIpAddress = strcat_array(todynamic(SourceDeviceIpAddress), \",\"), DestinationDeviceIpAddress = strcat_array(todynamic(DestinationDeviceIpAddress), \",\"),\r\nCategoriesIds = strcat_array(todynamic(CategoriesIds), \",\"),\r\nCategories = strcat_array(todynamic(Categories), \",\"),\r\nTechniqueIds = strcat_array(todynamic(TechniqueIds), \",\"),\r\nTechniqueNames = strcat_array(todynamic(TechniqueNames), \",\")\r\n| project-reorder TimeGenerated, Title, RiskScore",
+                "size": 0,
+                "showAnalytics": true,
+                "title": "Details of Detections with Risk Score: {MaximumRiskScore}",
+                "noDataMessage": "No data found.",
+                "timeContextFromParameter": "Time",
+                "showRefreshButton": true,
+                "showExportToExcel": true,
+                "queryType": 0,
+                "resourceType": "microsoft.operationalinsights/workspaces",
+                "gridSettings": {
+                  "rowLimit": 10000,
+                  "filter": true
+                }
+              },
+              "conditionalVisibility": {
+                "parameterName": "MaximumRiskScore",
+                "comparison": "isNotEqualTo"
+              },
+              "name": "query - 5",
+              "styleSettings": {
+                "showBorder": true
+              }
+            }
+          ]
+        },
+        "name": "group - 1"
+      },
+      {
+        "type": 12,
+        "content": {
+          "version": "NotebookGroup/1.0",
+          "groupType": "editable",
+          "items": [
+            {
+              "type": 3,
+              "content": {
+                "version": "KqlItem/1.0",
+                "query": "ExtraHopDetections \r\n| where IsRecommended = true\r\n| summarize Count = count() by Title | project-rename  [\"Detection Title\"] = Title",
+                "size": 0,
+                "showAnalytics": true,
+                "title": "Recommended Detections",
+                "noDataMessage": "No data found.",
+                "timeContextFromParameter": "Time",
+                "showRefreshButton": true,
+                "exportFieldName": "Detection Title",
+                "exportParameterName": "DetectionTitle",
+                "showExportToExcel": true,
+                "queryType": 0,
+                "resourceType": "microsoft.operationalinsights/workspaces",
+                "gridSettings": {
+                  "rowLimit": 10000
+                }
+              },
+              "customWidth": "33",
+              "name": "query - 1",
+              "styleSettings": {
+                "margin": "5px",
+                "maxWidth": "33%",
+                "showBorder": true
+              }
+            },
+            {
+              "type": 3,
+              "content": {
+                "version": "KqlItem/1.0",
+                "query": "ExtraHopDetections\r\n| mv-expand todynamic(Categories) |  summarize Count = count() by tostring(Categories) | top 10 by Count",
+                "size": 0,
+                "showAnalytics": true,
+                "title": "Top Detection Categories",
+                "timeContextFromParameter": "Time",
+                "showRefreshButton": true,
+                "exportFieldName": "series",
+                "exportParameterName": "Category",
+                "queryType": 0,
+                "resourceType": "microsoft.operationalinsights/workspaces",
+                "visualization": "piechart",
+                "chartSettings": {
+                  "group": "Categories",
+                  "createOtherGroup": 10
+                }
+              },
+              "customWidth": "33",
+              "name": "query - 2",
+              "styleSettings": {
+                "margin": "5px",
+                "maxWidth": "33%",
+                "showBorder": true
+              }
+            },
+            {
+              "type": 3,
+              "content": {
+                "version": "KqlItem/1.0",
+                "query": "ExtraHopDetections\r\n| mv-expand todynamic(TechniqueNames)\r\n| summarize Count=count() by tostring(TechniqueNames)\r\n| project-rename [\"MITRE Category\"] = TechniqueNames\r\n| top 10 by Count",
+                "size": 0,
+                "showAnalytics": true,
+                "title": "Top MITRE Techniques",
+                "noDataMessage": "No data found.",
+                "timeContextFromParameter": "Time",
+                "showRefreshButton": true,
+                "exportFieldName": "MITRE Category",
+                "exportParameterName": "MITRECategory",
+                "showExportToExcel": true,
+                "queryType": 0,
+                "resourceType": "microsoft.operationalinsights/workspaces"
+              },
+              "customWidth": "33",
+              "name": "query - 2",
+              "styleSettings": {
+                "margin": "5px",
+                "maxWidth": "33%",
+                "showBorder": true
+              }
+            },
+            {
+              "type": 1,
+              "content": {
+                "json": "#### Click on the sections in the above panel **Recommended Detections** to view more information.",
+                "style": "info"
+              },
+              "customWidth": "33",
+              "name": "text - 6",
+              "styleSettings": {
+                "margin": "5px",
+                "maxWidth": "33%"
+              }
+            },
+            {
+              "type": 1,
+              "content": {
+                "json": "#### Click on the sections in the above panel **Top Detection Categories** to view more information.",
+                "style": "info"
+              },
+              "customWidth": "33",
+              "name": "text - 7",
+              "styleSettings": {
+                "margin": "5px",
+                "maxWidth": "33%"
+              }
+            },
+            {
+              "type": 1,
+              "content": {
+                "json": "#### Click on the sections in the above panel **Top MITRE Techniques** to view more information.",
+                "style": "info"
+              },
+              "customWidth": "33",
+              "name": "text - 8",
+              "styleSettings": {
+                "margin": "5px",
+                "maxWidth": "33%"
+              }
+            },
+            {
+              "type": 3,
+              "content": {
+                "version": "KqlItem/1.0",
+                "query": "ExtraHopDetections\r\n| where Title == ('{DetectionTitle}')\r\n| extend SourceDeviceIpAddress = strcat_array(todynamic(SourceDeviceIpAddress), \",\"), DestinationDeviceIpAddress = strcat_array(todynamic(DestinationDeviceIpAddress), \",\"),\r\nCategoriesIds = strcat_array(todynamic(CategoriesIds), \",\"),\r\nCategories = strcat_array(todynamic(Categories), \",\"),\r\nTechniqueIds = strcat_array(todynamic(TechniqueIds), \",\"),\r\nTechniqueNames = strcat_array(todynamic(TechniqueNames), \",\")",
+                "size": 0,
+                "showAnalytics": true,
+                "title": "Details of Detection for {DetectionTitle}",
+                "noDataMessage": "No data found.",
+                "timeContextFromParameter": "Time",
+                "showRefreshButton": true,
+                "showExportToExcel": true,
+                "queryType": 0,
+                "resourceType": "microsoft.operationalinsights/workspaces",
+                "gridSettings": {
+                  "rowLimit": 10000,
+                  "filter": true
+                }
+              },
+              "conditionalVisibility": {
+                "parameterName": "DetectionTitle",
+                "comparison": "isNotEqualTo"
+              },
+              "name": "query - 5",
+              "styleSettings": {
+                "showBorder": true
+              }
+            },
+            {
+              "type": 3,
+              "content": {
+                "version": "KqlItem/1.0",
+                "query": "ExtraHopDetections\r\n| where Categories has_any (\"{Category}\") \r\n| extend SourceDeviceIpAddress = strcat_array(todynamic(SourceDeviceIpAddress), \",\"), DestinationDeviceIpAddress = strcat_array(todynamic(DestinationDeviceIpAddress), \",\"),\r\nCategoriesIds = strcat_array(todynamic(CategoriesIds), \",\"),\r\nCategories = strcat_array(todynamic(Categories), \",\"),\r\nTechniqueIds = strcat_array(todynamic(TechniqueIds), \",\"),\r\nTechniqueNames = strcat_array(todynamic(TechniqueNames), \",\")\r\n| project-reorder TimeGenerated, Title, Categories",
+                "size": 0,
+                "showAnalytics": true,
+                "title": "Details of {Category} Category",
+                "noDataMessage": "No data found.",
+                "timeContextFromParameter": "Time",
+                "showRefreshButton": true,
+                "showExportToExcel": true,
+                "queryType": 0,
+                "resourceType": "microsoft.operationalinsights/workspaces",
+                "gridSettings": {
+                  "rowLimit": 10000,
+                  "filter": true
+                }
+              },
+              "conditionalVisibility": {
+                "parameterName": "Category",
+                "comparison": "isNotEqualTo"
+              },
+              "name": "query - 4",
+              "styleSettings": {
+                "showBorder": true
+              }
+            },
+            {
+              "type": 3,
+              "content": {
+                "version": "KqlItem/1.0",
+                "query": "ExtraHopDetections\r\n| where TechniqueNames has_any (\"{MITRECategory}\")\r\n| extend SourceDeviceIpAddress = strcat_array(todynamic(SourceDeviceIpAddress), \",\"), DestinationDeviceIpAddress = strcat_array(todynamic(DestinationDeviceIpAddress), \",\"),\r\nCategoriesIds = strcat_array(todynamic(CategoriesIds), \",\"),\r\nCategories = strcat_array(todynamic(Categories), \",\"),\r\nTechniqueIds = strcat_array(todynamic(TechniqueIds), \",\"),\r\nTechniqueNames = strcat_array(todynamic(TechniqueNames), \",\")\r\n| project-rename [\"MITRETechniqueNames\"] = TechniqueNames\r\n| project-reorder TimeGenerated, Title, MITRETechniqueNames",
+                "size": 0,
+                "showAnalytics": true,
+                "title": "Details of {MITRECategory} MITRE Category",
+                "noDataMessage": "No data found.",
+                "timeContextFromParameter": "Time",
+                "showRefreshButton": true,
+                "showExportToExcel": true,
+                "queryType": 0,
+                "resourceType": "microsoft.operationalinsights/workspaces",
+                "gridSettings": {
+                  "rowLimit": 10000,
+                  "filter": true
+                }
+              },
+              "conditionalVisibility": {
+                "parameterName": "MITRECategory",
+                "comparison": "isNotEqualTo"
+              },
+              "name": "query - 5",
+              "styleSettings": {
+                "showBorder": true
+              }
+            }
+          ]
+        },
+        "customWidth": "0",
+        "name": "group - 2"
+      },
+      {
+        "type": 12,
+        "content": {
+          "version": "NotebookGroup/1.0",
+          "groupType": "editable",
+          "items": [
+            {
+              "type": 3,
+              "content": {
+                "version": "KqlItem/1.0",
+                "query": "ExtraHopDetections\r\n| summarize Count=count() by SourceHostname\r\n| project-rename [\"Host\"] = SourceHostname\r\n| top 10 by Count",
+                "size": 0,
+                "showAnalytics": true,
+                "title": "Top Sources",
+                "noDataMessage": "No data found.",
+                "timeContextFromParameter": "Time",
+                "showRefreshButton": true,
+                "exportFieldName": "Host",
+                "exportParameterName": "SourceHostname",
+                "showExportToExcel": true,
+                "queryType": 0,
+                "resourceType": "microsoft.operationalinsights/workspaces"
+              },
+              "customWidth": "50",
+              "name": "query - 2",
+              "styleSettings": {
+                "margin": "5px",
+                "maxWidth": "50%",
+                "showBorder": true
+              }
+            },
+            {
+              "type": 3,
+              "content": {
+                "version": "KqlItem/1.0",
+                "query": "ExtraHopDetections\r\n| summarize Count=count() by DestinationHostname\r\n| project-rename [\"Host\"] = DestinationHostname\r\n| top 10 by Count",
+                "size": 0,
+                "showAnalytics": true,
+                "title": "Top Destinations",
+                "noDataMessage": "No data found.",
+                "timeContextFromParameter": "Time",
+                "showRefreshButton": true,
+                "exportFieldName": "Host",
+                "exportParameterName": "DestinationHostname",
+                "showExportToExcel": true,
+                "queryType": 0,
+                "resourceType": "microsoft.operationalinsights/workspaces"
+              },
+              "customWidth": "50",
+              "name": "query - 3",
+              "styleSettings": {
+                "margin": "5px",
+                "maxWidth": "50%",
+                "showBorder": true
+              }
+            },
+            {
+              "type": 1,
+              "content": {
+                "json": "#### Click on the sections in the above panel **Top Sources** to view more information.",
+                "style": "info"
+              },
+              "customWidth": "50",
+              "name": "text - 4",
+              "styleSettings": {
+                "margin": "5px",
+                "maxWidth": "50%"
+              }
+            },
+            {
+              "type": 1,
+              "content": {
+                "json": "#### Click on the sections in the above panel **Top Destinations** to view more information.",
+                "style": "info"
+              },
+              "customWidth": "50",
+              "name": "text - 5",
+              "styleSettings": {
+                "margin": "5px",
+                "maxWidth": "50%"
+              }
+            },
+            {
+              "type": 3,
+              "content": {
+                "version": "KqlItem/1.0",
+                "query": "ExtraHopDetections\r\n| where SourceHostname == (\"{SourceHostname}\") \r\n| extend SourceDeviceIpAddress = strcat_array(todynamic(SourceDeviceIpAddress), \",\"), DestinationDeviceIpAddress = strcat_array(todynamic(DestinationDeviceIpAddress), \",\"),\r\nCategoriesIds = strcat_array(todynamic(CategoriesIds), \",\"),\r\nCategories = strcat_array(todynamic(Categories), \",\"),\r\nTechniqueIds = strcat_array(todynamic(TechniqueIds), \",\"),\r\nTechniqueNames = strcat_array(todynamic(TechniqueNames), \",\")\r\n| project-reorder TimeGenerated, Title, SourceHostname",
+                "size": 0,
+                "showAnalytics": true,
+                "title": "Details of {SourceHostname} Source",
+                "noDataMessage": "No data found.",
+                "timeContextFromParameter": "Time",
+                "showRefreshButton": true,
+                "showExportToExcel": true,
+                "queryType": 0,
+                "resourceType": "microsoft.operationalinsights/workspaces",
+                "gridSettings": {
+                  "rowLimit": 10000,
+                  "filter": true
+                }
+              },
+              "conditionalVisibility": {
+                "parameterName": "SourceHostname",
+                "comparison": "isNotEqualTo"
+              },
+              "name": "query - 2",
+              "styleSettings": {
+                "showBorder": true
+              }
+            },
+            {
+              "type": 3,
+              "content": {
+                "version": "KqlItem/1.0",
+                "query": "ExtraHopDetections\r\n| where DestinationHostname == (\"{DestinationHostname}\") \r\n| extend SourceDeviceIpAddress = strcat_array(todynamic(SourceDeviceIpAddress), \",\"), DestinationDeviceIpAddress = strcat_array(todynamic(DestinationDeviceIpAddress), \",\"),\r\nCategoriesIds = strcat_array(todynamic(CategoriesIds), \",\"),\r\nCategories = strcat_array(todynamic(Categories), \",\"),\r\nTechniqueIds = strcat_array(todynamic(TechniqueIds), \",\"),\r\nTechniqueNames = strcat_array(todynamic(TechniqueNames), \",\")\r\n| project-reorder TimeGenerated, Title, DestinationHostname",
+                "size": 0,
+                "showAnalytics": true,
+                "title": "Details of {DestinationHostname} Destination",
+                "noDataMessage": "No data found.",
+                "timeContextFromParameter": "Time",
+                "showRefreshButton": true,
+                "showExportToExcel": true,
+                "queryType": 0,
+                "resourceType": "microsoft.operationalinsights/workspaces",
+                "gridSettings": {
+                  "rowLimit": 10000,
+                  "filter": true
+                }
+              },
+              "conditionalVisibility": {
+                "parameterName": "DestinationHostname",
+                "comparison": "isNotEqualTo"
+              },
+              "name": "query - 3",
+              "styleSettings": {
+                "showBorder": true
+              }
+            }
+          ]
+        },
+        "name": "group - 3"
+      },
+      {
+        "type": 3,
+        "content": {
+          "version": "KqlItem/1.0",
+          "query": "ExtraHopDetections\r\n| sort by TimeGenerated\r\n| extend Categories = strcat_array(todynamic(Categories), \",\")\r\n| project  TimeGenerated, [\"Detection ID\"] = Id, [\"Risk Score\"] = RiskScore, [\"Detection Title\"] = Title, Categories, \r\n[\"Source Host\"] = SourceHostname, [\"Destination Host\"] = DestinationHostname, [\"Detection Generated Time\"] = DateTime, Assignee, [\"Detection URL\"] = Url",
+          "size": 0,
+          "showAnalytics": true,
+          "title": "Recent Detections",
+          "noDataMessage": "No data found.",
+          "timeContextFromParameter": "Time",
+          "showRefreshButton": true,
+          "showExportToExcel": true,
+          "queryType": 0,
+          "resourceType": "microsoft.operationalinsights/workspaces",
+          "gridSettings": {
+            "rowLimit": 10000,
+            "filter": true
+          }
+        },
+        "name": "query - 4",
+        "styleSettings": {
+          "showBorder": true
+        }
+      },
+      {
+        "type": 1,
+        "content": {
+          "json": "📝 **Refresh the web page to fetch details of recently collected events**"
+        },
+        "name": "text - 6"
+      }
+    ],
+    "fromTemplateId": "sentinel-ExtraHopDetectionsOverview",
+    "$schema": "https://github.com/Microsoft/Application-Insights-Workbooks/blob/master/schema/workbook.json"
+  }
